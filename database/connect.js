@@ -14,6 +14,7 @@ module.exports = {
 
         try{
             _db = await MongoClient.connect(process.env.MONGODB_URI);
+            console.log("Db initialized successfully");
         callback(null, _db);
         }catch (error) {
             callback(error)
@@ -23,7 +24,7 @@ module.exports = {
 
     getDb() {
         if(!_db){
-            throw Error("Database not initialized.'")
+            throw Error("Database not initialized.")
         }
         return _db
     }
