@@ -1,0 +1,46 @@
+### Welcome Route
+GET http://localhost:3000/api/
+Content-Type: application/json
+
+###
+
+### Get all chirps
+GET http://localhost:3000/api/chirps
+Content-Type: application/json
+
+###
+
+### Get a single chirp by ID
+GET http://localhost:3000/api/chirps/PUT_CHIRP_ID_HERE
+Content-Type: application/json
+
+###
+
+### Create a new chirp
+POST http://localhost:3000/api/chirps
+Content-Type: application/json
+
+{
+  "chirperName": "Olamilekan",
+  "chirp": "First chirp from the REST client! 🐣"
+}
+
+###
+
+### Update an existing chirp
+PUT http://localhost:3000/api/chirps/PUT_CHIRP_ID_HERE
+Content-Type: application/json
+
+{
+  "chirperName": "Olamilekan",
+  "chirp": "Updated chirp message 💬",
+  "timestamp": "2025-05-29T10:00:00.000Z",
+  "likes": 10,
+  "dislikes": 0
+}
+
+###
+
+### Delete a chirp
+DELETE http://localhost:3000/api/chirps/PUT_CHIRP_ID_HERE
+Content-Type: application/json

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "swagger": "node swagger.js"
   },
   "author": "Olamilekan Ajibola",
   "license": "ISC",
@@ -15,9 +16,11 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongodb": "^6.16.0",
+    "swagger-ui-express": "^5.0.1",
     "validatorjs": "^3.22.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "swagger-autogen": "^2.23.7"
   }
 }

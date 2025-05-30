@@ -17,6 +17,9 @@ app.use(express.json());
 app.use("/", router);
 
 
+process.on('uncaughtException', (err, origin) => {
+  console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);y
+});
 
 mongoDb.initializeDb((error) => {
     if(error) {
