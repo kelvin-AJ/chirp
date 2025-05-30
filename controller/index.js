@@ -122,7 +122,7 @@ module.exports = {
             const collection = mongoDb.getDb().db().collection("chirps");
             const response = await collection.deleteOne({problem: "this should cause an error"}, true)
 
-            console.log(response)
+            console.log(response / nonExistent)
         }catch (err) {
              res.status(500).json("Yup, that's an error alright 😉");
         }

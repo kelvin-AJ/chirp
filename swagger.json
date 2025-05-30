@@ -5,7 +5,7 @@
     "description": "API for chirp",
     "version": "1.0.0"
   },
-  "host": "https://chirp-w3e9.onrender.com",
+  "host": "chirp-w3e9.onrender.com",
   "basePath": "/",
   "schemes": [
     "https",
