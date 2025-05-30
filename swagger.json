@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "chirp API",
-    "description": "API for chirp",
+    "description": "Chirp is a lightweight, Twitter-like social media platform that allows users to post short messages called 'chirps.' This API provides a simple RESTful interface to create, retrieve, update, and delete chirps, as well as manage metadata such as likes and dislikes.",
     "version": "1.0.0"
   },
   "host": "chirp-w3e9.onrender.com",
