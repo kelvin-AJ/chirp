@@ -5,7 +5,7 @@ const doc = {
     title: 'chirp API',
     description: 'API for chirp'
   },
-  host: 'https://chirp-w3e9.onrender.com',
+  host: 'chirp-w3e9.onrender.com',
   schemes: ['https','http']
 };
 
