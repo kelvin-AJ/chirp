@@ -1,5 +1,6 @@
 const mongoDb = require("../database/connect");
 const ObjectId = require("mongodb").ObjectId;
+const chirperController = require("./chirper")
 
 
 
@@ -24,7 +25,6 @@ module.exports = {
 
             const collection = mongoDb.getDb().db().collection("chirps");
             const chirps = await collection.find({_id: new ObjectId(chirpID)}).toArray();
-            console.log(chirps)
             res.status(200).json(chirps)
         }catch (err) {
              res.status(500).json(err || "Couldn't get chirps");
@@ -42,11 +42,17 @@ module.exports = {
                 likes: 0,
                 dislikes: 0
             };
-        
+            
+            
+        // Create Chirpers
+        if(!await chirperController.chirperExists(res, req.body.chirperName)){
+            chirperController.addChirper(res, req.body.chirperName)
+        }
 
-        const response = await collection.insertOne(chirp)
+        const response = await collection.insertOne(chirp);
         if (response.acknowledged) {
             res.status(201).json(response);
+            return
         
          }else {
             res.status(400).json(response || "Couldn't create Chirp")
@@ -75,6 +81,10 @@ module.exports = {
                 likes: req.body.likes,
                 dislikes: req.body.dislikes,
                 modifiedDate: Date.now()
+            }
+
+            if(!await chirperController.chirperExists(res, req.body.chirperName)){
+                chirperController.addChirper(res, req.body.chirperName)
             }
             
             const response = await collection.replaceOne({_id: new ObjectId(chirpID)}, chirp);
