@@ -5,10 +5,10 @@
     "description": "API for chirp",
     "version": "1.0.0"
   },
-  "host": "localhost",
+  "host": "chirp-w3e9.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https", "http"
   ],
   "paths": {
     "/": {

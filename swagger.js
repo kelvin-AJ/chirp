@@ -5,8 +5,8 @@ const doc = {
     title: 'chirp API',
     description: 'API for chirp'
   },
-  host: 'localhost',
-  schemes: ['http']
+  host: 'https://chirp-w3e9.onrender.com',
+  schemes: ['https','http']
 };
 
 const outputFile = './swagger.json';
