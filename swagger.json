@@ -5,10 +5,11 @@
     "description": "API for chirp",
     "version": "1.0.0"
   },
-  "host": "chirp-w3e9.onrender.com",
+  "host": "https://chirp-w3e9.onrender.com",
   "basePath": "/",
   "schemes": [
-    "https", "http"
+    "https",
+    "http"
   ],
   "paths": {
     "/": {
@@ -162,6 +163,26 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/chirp/error": {
+      "get": {
+        "description": "",
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }

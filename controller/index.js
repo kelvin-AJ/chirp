@@ -112,5 +112,19 @@ module.exports = {
         }catch (err) {
              res.status(500).json(err.message || "Couldn't delete Chirp");
         }
+    },
+
+
+
+    async createServererror(req, res) {
+        try{
+
+            const collection = mongoDb.getDb().db().collection("chirps");
+            const response = await collection.deleteOne({problem: "this should cause an error"}, true)
+
+            console.log(response)
+        }catch (err) {
+             res.status(500).json("Yup, that's an error alright 😉");
+        }
     }
 }
