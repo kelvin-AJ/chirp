@@ -5,8 +5,8 @@ const validation = require("../middleware/validate");
 
 router.get("/", chirperController.getChirpers);
 router.get("/:id", chirperController.getOneChirper);
-router.post("/", chirperController.addChirperAdimin);
-router.put("/:id", chirperController.updateChirper);
+router.post("/", validation.addChirper, chirperController.addChirperAdimin);
+router.put("/:id", validation.updateChirper, chirperController.updateChirper);
 router.delete("/:id", chirperController.deleteChirper);
 
 

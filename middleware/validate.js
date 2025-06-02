@@ -40,5 +40,45 @@ module.exports = {
         } else {
             next();
     }});
+    },
+
+
+
+
+    // CHIRPER
+    addChirper (req, res, next) {
+        const validationRule = {
+            chirperName: "required|string|min:3"
+        }
+
+    validator(req.body, validationRule, {}, (err, status) => {
+        if (!status) {
+            res.status(412).send({
+                success: false,
+                message: 'Validation failed',
+                data: err
+            });
+        } else {
+            next();
+        }});
+    },
+
+
+    updateChirper (req, res, next) {
+            const validationRule = {
+            chirperName: "required|string|min:3"
+        }
+
+
+    validator(req.body, validationRule, {}, (err, status) => {
+        if (!status) {
+            res.status(412).send({
+                success: false,
+                message: 'Validation failed',
+                data: err
+        });
+        } else {
+            next();
+    }});
     }
 }
