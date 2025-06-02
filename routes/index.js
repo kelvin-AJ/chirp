@@ -1,8 +1,8 @@
 const routes = require("express").Router();
 const chirpController = require("../controller");
-const chirperController = require("../controller/chirper")
-const validation = require("../middleware/validate");
+const chirperRoutes = require("./chirpers");
 const swaggerUIroute = require("./swagger");
+const validation = require("../middleware/validate");
 
 
 
@@ -11,16 +11,20 @@ routes.get("/", (req, res) => {
 });
 routes.use("/", swaggerUIroute)
 
-// GET ROUTES
+// ROUTES (CHIRPS)
 routes.get("/chirps", chirpController.getAllChirps);
 routes.get("/chirps/:id", chirpController.getOneChirp);
 routes.get("/chirp/error", chirpController.createServererror);
-routes.get("/chirpers", chirperController.getChirpers);
+
 
 
 routes.post("/chirps", validation.addChirp, chirpController.addChirp);
 routes.put("/chirps/:id", validation.updateChirp, chirpController.updateChirp);
 
 routes.delete("/chirps/:id", chirpController.deleteChirp);
+
+// ROUTES CHIRPERS
+routes.use("/chirpers", chirperRoutes);
+
 
 module.exports = routes

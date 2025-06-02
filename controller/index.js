@@ -1,6 +1,7 @@
 const mongoDb = require("../database/connect");
 const ObjectId = require("mongodb").ObjectId;
-const chirperController = require("./chirper")
+const chirperController = require("./chirper");
+const chirperHelper = require("../utilities/chirperHelper")
 
 
 
@@ -45,7 +46,7 @@ module.exports = {
             
             
         // Create Chirpers
-        if(!await chirperController.chirperExists(res, req.body.chirperName)){
+        if(!await chirperHelper.chirperExists(res, req.body.chirperName)){
             chirperController.addChirper(res, req.body.chirperName)
         }
 
@@ -71,7 +72,6 @@ module.exports = {
             if (!ObjectId.isValid(chirpID)) {
              res.status(400).json("Must use a valid Chirp ID");
             }   
-            console.log(chirpID)
 
             const collection = mongoDb.getDb().db().collection("chirps");
             const chirp = {
@@ -83,12 +83,11 @@ module.exports = {
                 modifiedDate: Date.now()
             }
 
-            if(!await chirperController.chirperExists(res, req.body.chirperName)){
+            if(!await chirperHelper.chirperExists(res, req.body.chirperName)){
                 chirperController.addChirper(res, req.body.chirperName)
             }
             
             const response = await collection.replaceOne({_id: new ObjectId(chirpID)}, chirp);
-            console.log(response)
             if(response.modifiedCount > 0){
                 res.status(200).json(response);
             }else if(response.acknowledged){
