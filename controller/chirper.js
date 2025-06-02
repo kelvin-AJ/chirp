@@ -31,6 +31,19 @@ module.exports = {
                  res.status(500).json(err || "Couldn't get chirpers");
             }
         },
+         async addChirper(res, name){
+        try{
+            const collection = mongoDb.getDb().db().collection("chirpers");
+            const chirper = {chirperName: name};
+        
+
+        const response = await collection.insertOne(chirper);
+        return response.acknowledged;
+        }
+          catch (err) {
+            res.status(500).json(err.message || "Couldn't create chirper");
+        }
+    },
 
     async addChirperAdimin(req, res) {
         try{
