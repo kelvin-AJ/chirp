@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const chirperController = require("../controller/chirper")
 const validation = require("../middleware/validate");
-
-const {isAuthenticated} = require("../middleware/authenticate")
+const {isAuthenticated} = require("../middleware/authenticate");
 
 
 router.get("/", chirperController.getChirpers);
