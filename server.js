@@ -26,7 +26,7 @@ const sessionOptions = {
   secret: process.env.SESSION_SECRET || "secret",
   resave: false,
   saveUninitialized: true,
-  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
+  store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
 }
 
 const gitHubStrategyOptions = {
