@@ -1,5 +1,6 @@
 const express = require("express");
 const passport = require("passport");
+const MongoStore = require("connect-mongo");
 const session = require("express-session");
 const GitHubStrategy = require("passport-github2").Strategy;
 const cors = require("cors");
@@ -22,9 +23,10 @@ const whitelist = [
 
 
 const sessionOptions = {
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || "secret",
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 }
 
 const gitHubStrategyOptions = {
