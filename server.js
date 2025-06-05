@@ -58,9 +58,8 @@ app.use(session(sessionOptions))
 
 passport.use(new GitHubStrategy(gitHubStrategyOptions, 
     function(accessToken, refreshToken, profile, done) {
-      User.findOrCreate({githubId: profile.id}, function(err, user) {
+
         return done(null, profile)
-      })
     }
 ));
 
