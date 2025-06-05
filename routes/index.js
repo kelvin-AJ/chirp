@@ -1,30 +1,26 @@
 const routes = require("express").Router();
-const chirpController = require("../controller");
+const chirpRoutes = require("./chirps")
 const chirperRoutes = require("./chirpers");
 const swaggerUIroute = require("./swagger");
-const validation = require("../middleware/validate");
+const passport = require("passport");
 
 
 
-routes.get("/", (req, res) => {
-  res.send("Welcome to Chirp!🐣")
-});
-routes.use("/", swaggerUIroute)
+// routes.get("/", (req, res) => {
+//   res.send("Welcome to Chirp!🐣")
+// });
 
-// ROUTES (CHIRPS)
-routes.get("/chirps", chirpController.getAllChirps);
-routes.get("/chirps/:id", chirpController.getOneChirp);
-routes.get("/chirp/error", chirpController.createServererror);
-
-
-
-routes.post("/chirps", validation.addChirp, chirpController.addChirp);
-routes.put("/chirps/:id", validation.updateChirp, chirpController.updateChirp);
-
-routes.delete("/chirps/:id", chirpController.deleteChirp);
-
-// ROUTES CHIRPERS
+routes.use("/", swaggerUIroute);
+routes.use("/chirps", chirpRoutes);
 routes.use("/chirpers", chirperRoutes);
 
+routes.get("/login", passport.authenticate("github"), (req, res) => {});
+routes.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {return next(err)}
+    res.redirect("/")
+  })
+})
 
-module.exports = routes
+
+module.exports = routes;

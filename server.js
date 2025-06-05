@@ -1,7 +1,10 @@
 const express = require("express");
-const router = require("./routes");
+const passport = require("passport");
+const session = require("express-session");
+const GitHubStrategy = require("passport-github2").Strategy;
 const cors = require("cors");
 
+const router = require("./routes");
 const mongoDb = require("./database/connect");
 
 const app = express();
@@ -17,6 +20,20 @@ const whitelist = [
   'https://chirp-w3e9.onrender.com',
 ];
 
+
+const sessionOptions = {
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}
+
+const gitHubStrategyOptions = {
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: process.env.GITHUB_CALLBACK_URL
+}
+
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.includes(origin)) {
@@ -30,9 +47,45 @@ const corsOptions = {
 
 
 
-app.use(cors(corsOptions))
+
+app.use(session(sessionOptions))
+   .use(cors(corsOptions))
    .use(express.json())
    .use("/", router);
+
+
+passport.use(new GitHubStrategy(gitHubStrategyOptions, 
+    function(accessToken, refreshToken, profile, done) {
+      User.findOrCreate({githubId: profile.id}, function(err, user) {
+        return done(null, profile)
+      })
+    }
+));
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((user, done) => {
+  done(null, user)
+})
+
+app.get(
+  "/", 
+  (req, res) => {
+    
+    res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : "Logged Out")});
+
+app.get(
+  "/github/callback",
+  passport.authenticate("github", { failureRedirect: "/api-docs", session: false }),
+  (req, res) => {
+
+    req.session.user = req.user;   
+    res.redirect("/");
+  }
+);
+
+
 
 
 
